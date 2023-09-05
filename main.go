@@ -6,6 +6,7 @@ import (
 	"os"
 
 	chi "github.com/go-chi/chi/v5"
+	middleware "github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 	"github.com/joho/godotenv"
 )
@@ -13,13 +14,17 @@ import (
 func main() {
 	godotenv.Load()
 
+	LOGGER := env("LOGGER", true)
 	PORT := env("PORT", true)
 	router := main_router(PORT)
+
+	if len(LOGGER) > 0 {
+		router.Use(middleware.Logger)
+	}
 
 	router.Route("/api", api_router)
 
 	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("Request %s %s%s\n", r.Method, r.Host, r.URL.Path)
 		w.Write([]byte("Hello, world!"))
 	})
 
@@ -47,7 +52,6 @@ func main_router(PORT string) (router *chi.Mux) {
 
 func api_router(r chi.Router) {
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("Request %s %s%s\n", r.Method, r.Host, r.URL.Path)
 		w.Write([]byte("Hello, world!"))
 	})
 }
