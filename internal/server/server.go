@@ -40,6 +40,10 @@ func setupRouter(c *config.Config) chi.Router {
 		router.Use(middleware.Logger)
 	}
 
+	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Ow, hi Mark!"))
+	})
+
 	staticDir := http.Dir("static")
 	staticFileServer := http.FileServer(staticDir)
 	http.Handle("/static/", http.StripPrefix("/static/", staticFileServer))

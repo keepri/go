@@ -9,7 +9,7 @@ import (
 
 func Route(r chi.Router) {
 	r.Route("/auth", authRoute)
-	r.HandleFunc("/", func(w http.ResponseWriter, _ *http.Request) {
+	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello, api!"))
 	})
 }

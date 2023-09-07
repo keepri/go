@@ -14,11 +14,11 @@ type User struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
-func UserModel(u *database.User) User {
+func UserModel(u *database.User) *User {
 	created_at, _ := time.Parse("2006-01-02 15:04:05", u.CreatedAt)
 	updated_at, _ := time.Parse("2006-01-02 15:04:05", u.UpdatedAt)
 
-	return User{
+	return &User{
 		Id:        int(u.ID),
 		Name:      u.Name,
 		ApiKey:    u.ApiKey.String,

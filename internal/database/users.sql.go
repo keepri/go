@@ -28,12 +28,50 @@ func (q *Queries) CreateUser(ctx context.Context, name string) (User, error) {
 	return i, err
 }
 
-const getUsers = `-- name: GetUsers :many
+const userById = `-- name: UserById :one
+SELECT id, name, created_at, updated_at, api_key
+FROM users
+WHERE id = ?
+`
+
+func (q *Queries) UserById(ctx context.Context, id int64) (User, error) {
+	row := q.db.QueryRowContext(ctx, userById, id)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.ApiKey,
+	)
+	return i, err
+}
+
+const userByName = `-- name: UserByName :one
+SELECT id, name, created_at, updated_at, api_key
+FROM users
+WHERE name = ?
+`
+
+func (q *Queries) UserByName(ctx context.Context, name string) (User, error) {
+	row := q.db.QueryRowContext(ctx, userByName, name)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.ApiKey,
+	)
+	return i, err
+}
+
+const users = `-- name: Users :many
 SELECT id, name, created_at, updated_at, api_key FROM users
 `
 
-func (q *Queries) GetUsers(ctx context.Context) ([]User, error) {
-	rows, err := q.db.QueryContext(ctx, getUsers)
+func (q *Queries) Users(ctx context.Context) ([]User, error) {
+	rows, err := q.db.QueryContext(ctx, users)
 	if err != nil {
 		return nil, err
 	}
