@@ -1,0 +1,10 @@
+version: 2
+project:
+  id: "rss"
+sql:
+  - engine: "sqlite"
+    schema: "sql/schema"
+    queries: "sql/query"
+    gen:
+      go:
+        out: "internal/database"
