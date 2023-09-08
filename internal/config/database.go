@@ -1,14 +1,26 @@
-package database
+package config
 
 import (
 	"database/sql"
 	"log"
 
+	"github.com/keepri/go/internal/database"
 	"github.com/keepri/go/internal/utils/env"
 	_ "github.com/libsql/libsql-client-go/libsql"
 )
 
-func Connect() *sql.DB {
+type DBConfig struct {
+	Db   *database.Queries
+	Conn *sql.DB
+}
+
+func NewDBConfig() *DBConfig {
+	return &DBConfig{
+		Db: database.New(ConnectDB()),
+	}
+}
+
+func ConnectDB() *sql.DB {
 	conn, err := sql.Open("libsql", env.Get("database_url", true).Val)
 	if err != nil {
 		log.Fatalf("could not connect to database, %v\n", err)
@@ -16,6 +28,6 @@ func Connect() *sql.DB {
 	return conn
 }
 
-func Query(conn *sql.DB) *Queries {
-	return New(conn)
+func (c *DBConfig) CloseDB() {
+	c.Conn.Close()
 }
