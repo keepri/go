@@ -1,4 +1,4 @@
 .env
-rss
+go
 tmp/
 sql/db/

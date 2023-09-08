@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"log"
 
-	"github.com/keepri/rss/internal/utils/env"
+	"github.com/keepri/go/internal/utils/env"
 	_ "github.com/libsql/libsql-client-go/libsql"
 )
 

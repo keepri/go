@@ -7,9 +7,9 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
-	"github.com/keepri/rss/internal/api"
-	"github.com/keepri/rss/internal/api/handlers"
-	"github.com/keepri/rss/internal/config"
+	"github.com/keepri/go/internal/api"
+	"github.com/keepri/go/internal/api/handlers"
+	"github.com/keepri/go/internal/config"
 )
 
 func Setup(c *config.Config) *http.Server {

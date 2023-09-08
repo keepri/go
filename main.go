@@ -4,8 +4,8 @@ import (
 	"log"
 
 	"github.com/joho/godotenv"
-	"github.com/keepri/rss/internal/config"
-	"github.com/keepri/rss/internal/server"
+	"github.com/keepri/go/internal/config"
+	"github.com/keepri/go/internal/server"
 )
 
 func main() {

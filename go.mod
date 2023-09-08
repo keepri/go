@@ -1,4 +1,4 @@
-module github.com/keepri/rss
+module github.com/keepri/go
 
 go 1.21.0
 

@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/keepri/rss/internal/api/handlers"
+	"github.com/keepri/go/internal/api/handlers"
 )
 
 func Route(r chi.Router) {

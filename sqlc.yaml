@@ -1,6 +1,6 @@
-version: 2
+version: "2"
 project:
-  id: "rss"
+  id: "go"
 sql:
   - engine: "sqlite"
     schema: "sql/schema"

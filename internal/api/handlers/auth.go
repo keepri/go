@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/keepri/rss/internal/utils/response"
+	"github.com/keepri/go/internal/utils/response"
 )
 
 func Login(w http.ResponseWriter, r *http.Request) {

@@ -4,7 +4,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/keepri/rss/internal/utils/env"
+	"github.com/keepri/go/internal/utils/env"
 )
 
 type Config struct {

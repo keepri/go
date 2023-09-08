@@ -3,7 +3,7 @@ package models
 import (
 	"time"
 
-	"github.com/keepri/rss/internal/database"
+	"github.com/keepri/go/internal/database"
 )
 
 type User struct {
