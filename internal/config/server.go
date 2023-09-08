@@ -36,18 +36,7 @@ func (c *ServerConfig) NewServer() *http.Server {
 func (c *ServerConfig) MainRouter() chi.Router {
 	router := chi.NewRouter()
 
-	router.Use(cors.Handler(cors.Options{
-		AllowedOrigins:   []string{fmt.Sprintf("http://127.0.0.1:%d", c.Port)},
-		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE"},
-		AllowedHeaders:   []string{"*"},
-		ExposedHeaders:   []string{"Link"},
-		AllowCredentials: false,
-		MaxAge:           300,
-	}))
-
-	if c.Logger {
-		router.Use(middleware.Logger)
-	}
+	c.SetupMiddleware(router)
 
 	router.Mount("/v1", c.V1Router())
 	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
@@ -65,11 +54,25 @@ func (c *ServerConfig) V1Router() chi.Router {
 	v1 := chi.NewRouter()
 
 	v1.Route("/api", api.ApiRoute)
-
 	v1.Get("/healthz", handlers.Healthz)
 	v1.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello, world!"))
 	})
 
 	return v1
+}
+
+func (c *ServerConfig) SetupMiddleware(router *chi.Mux) {
+	router.Use(cors.Handler(cors.Options{
+		AllowedOrigins:   []string{fmt.Sprintf("http://127.0.0.1:%d", c.Port)},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE"},
+		AllowedHeaders:   []string{"*"},
+		ExposedHeaders:   []string{"Link"},
+		AllowCredentials: false,
+		MaxAge:           300,
+	}))
+
+	if c.Logger {
+		router.Use(middleware.Logger)
+	}
 }
