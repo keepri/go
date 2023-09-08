@@ -4,14 +4,12 @@
 
 package database
 
-import (
-	"database/sql"
-)
+import ()
 
 type User struct {
 	ID        int64
 	Name      string
 	CreatedAt string
 	UpdatedAt string
-	ApiKey    sql.NullString
+	ApiKey    string
 }

@@ -21,7 +21,7 @@ func UserModel(u *database.User) *User {
 	return &User{
 		Id:        int(u.ID),
 		Name:      u.Name,
-		ApiKey:    u.ApiKey.String,
+		ApiKey:    u.ApiKey,
 		CreatedAt: created_at,
 		UpdatedAt: updated_at,
 	}
