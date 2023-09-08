@@ -5,6 +5,10 @@ import (
 	"github.com/keepri/go/internal/server"
 )
 
+type Test struct {
+	Hello string
+}
+
 func main() {
 	godotenv.Load()
 	server.Init()

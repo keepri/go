@@ -15,3 +15,8 @@ WHERE id = ?;
 SELECT *
 FROM users
 WHERE name = ?;
+
+-- name: UserByApiKey :one
+SELECT *
+FROM users
+WHERE api_key = ?;

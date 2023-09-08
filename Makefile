@@ -2,10 +2,10 @@ build:
 	go build
 	
 build-run:
-	go build && ./rss
+	go build && ./go
 
 run:
-	./rss
+	./go
 
 migrate:
 	goose -dir sql/schema sqlite3 ./sql/db/db.sqlite up
