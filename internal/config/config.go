@@ -4,7 +4,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/keepri/rss/internal/utils"
+	"github.com/keepri/rss/internal/utils/env"
 )
 
 type Config struct {
@@ -27,12 +27,12 @@ func (c *Config) LoadFromEnv() *Config {
 		c.Port = port
 	}
 
-	debug := utils.Env("DEBUG", false)
+	debug := env.Get("debug", false).Val
 	if len(debug) > 0 {
 		c.Debug = true
 	}
 
-	logger := utils.Env("LOGGER", false)
+	logger := env.Get("logger", false).Val
 	if len(logger) > 0 {
 		c.Logger = true
 	}
