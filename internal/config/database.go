@@ -16,11 +16,11 @@ type DBConfig struct {
 
 func NewDBConfig() *DBConfig {
 	return &DBConfig{
-		Db: database.New(ConnectDB()),
+		Db: database.New(NewDBConn()),
 	}
 }
 
-func ConnectDB() *sql.DB {
+func NewDBConn() *sql.DB {
 	conn, err := sql.Open("libsql", env.Get("database_url", true).Val)
 	if err != nil {
 		log.Fatalf("could not connect to database, %v\n", err)
@@ -28,6 +28,6 @@ func ConnectDB() *sql.DB {
 	return conn
 }
 
-func (c *DBConfig) CloseDB() {
+func (c *DBConfig) CloseDBConn() {
 	c.Conn.Close()
 }
