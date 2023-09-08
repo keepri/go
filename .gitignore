@@ -1,4 +1,4 @@
 .env
 rss
-gin-bin
-sql/db
+tmp/
+sql/db/
