@@ -10,7 +10,7 @@ CREATE TABLE users (
 CREATE INDEX idx_name ON users(name);
 
 CREATE TRIGGER set_updated_at_on_update
-    AFTER UPDATE ON users
+    BEFORE UPDATE ON users
     FOR EACH ROW
     BEGIN
         UPDATE users

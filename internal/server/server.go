@@ -16,7 +16,7 @@ func Init() {
 	router := chi.NewRouter()
 	v1 := chi.NewRouter()
 	cfg := config.NewServerConfig()
-    db_service := config.NewDBConfig()
+	db_service := config.NewDBConfig()
 	user_handler := handlers.NewUserHandler(db_service)
 	auth_handler := handlers.NewAuthHandler(db_service)
 	healthz_handler := handlers.NewHealthzHandler()
@@ -36,6 +36,7 @@ func Init() {
 
 	// /v1 routes
 	v1.Route("/", func(r chi.Router) {
+
 		r.Get("/healthz", healthz_handler.Healthz)
 		r.HandleFunc("/", func(w http.ResponseWriter, _ *http.Request) {
 			w.Write([]byte("Hello, v1!"))

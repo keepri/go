@@ -11,8 +11,8 @@ import (
 
 const createUser = `-- name: CreateUser :one
 INSERT INTO users(name)
-VALUES (?)
-RETURNING id, name, created_at, updated_at, api_key
+    VALUES (?)
+    RETURNING id, name, created_at, updated_at, api_key
 `
 
 func (q *Queries) CreateUser(ctx context.Context, name string) (User, error) {
@@ -28,10 +28,36 @@ func (q *Queries) CreateUser(ctx context.Context, name string) (User, error) {
 	return i, err
 }
 
+const updateUser = `-- name: UpdateUser :one
+UPDATE users
+    SET name = ?, api_key = ?
+    WHERE id = ?
+    RETURNING id, name, created_at, updated_at, api_key
+`
+
+type UpdateUserParams struct {
+	Name   string
+	ApiKey string
+	ID     int64
+}
+
+func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error) {
+	row := q.db.QueryRowContext(ctx, updateUser, arg.Name, arg.ApiKey, arg.ID)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.ApiKey,
+	)
+	return i, err
+}
+
 const userByApiKey = `-- name: UserByApiKey :one
 SELECT id, name, created_at, updated_at, api_key
-FROM users
-WHERE api_key = ?
+    FROM users
+    WHERE api_key = ?
 `
 
 func (q *Queries) UserByApiKey(ctx context.Context, apiKey string) (User, error) {
@@ -49,8 +75,8 @@ func (q *Queries) UserByApiKey(ctx context.Context, apiKey string) (User, error)
 
 const userById = `-- name: UserById :one
 SELECT id, name, created_at, updated_at, api_key
-FROM users
-WHERE id = ?
+    FROM users
+    WHERE id = ?
 `
 
 func (q *Queries) UserById(ctx context.Context, id int64) (User, error) {
@@ -68,8 +94,8 @@ func (q *Queries) UserById(ctx context.Context, id int64) (User, error) {
 
 const userByName = `-- name: UserByName :one
 SELECT id, name, created_at, updated_at, api_key
-FROM users
-WHERE name = ?
+    FROM users
+    WHERE name = ?
 `
 
 func (q *Queries) UserByName(ctx context.Context, name string) (User, error) {
